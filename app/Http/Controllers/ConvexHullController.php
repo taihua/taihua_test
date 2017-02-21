@@ -33,7 +33,7 @@ class ConvexHullController extends Controller
         $points = $this->sort_points($points);
 
         var_dump($points);
-        return view('convex_hull.index', ['points' => $points,'max_x'=>$max_x,'max_y'=>$max_y,'radius'=>$radius]);
+        return view('convex_hull.show', ['points' => $points,'max_x'=>$max_x,'max_y'=>$max_y,'radius'=>$radius]);
     }
 
     public function sort_points($points)
@@ -48,7 +48,7 @@ class ConvexHullController extends Controller
             $point['deg'] =rad2deg(asin( ($min['x'] - $point['x']) / sqrt(pow($min['x'] - $point['x'], 2) + pow($min['y'] - $point['y'], 2)) ));
 
             return $point;
-        });
+        })->sortByDesc('deg');
 
 
         return $points->prepend($min)->values();
